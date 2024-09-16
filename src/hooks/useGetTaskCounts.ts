@@ -1,7 +1,15 @@
 import { useEffect } from 'react';
 import tableDataReducers from '../components/utils/tableDataReducers';
+import TaskCounts from '../types/TaskCounts';
 
-export default function useGetTaskCounts(setTaskCounts, data) {
+interface useGetTaskCountsProps {
+  setTaskCounts: (taskCounts: TaskCounts) => void;
+  data: any;
+}
+
+export default function useGetTaskCounts(props: useGetTaskCountsProps) {
+  const { setTaskCounts, data } = props;
+
   useEffect(() => {
     if (data) {
       setTaskCounts({

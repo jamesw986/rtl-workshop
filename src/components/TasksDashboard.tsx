@@ -13,6 +13,7 @@ import TasksTable from './TasksTable';
 import AddTask from './AddTask';
 import tableDataReducers from './utils/tableDataReducers';
 import useGetTaskCounts from '../hooks/useGetTaskCounts';
+import TasksDashboardTabs from './TasksDashboardTabs';
 
 export default function TasksDashboard() {
   const [value, setValue] = useState(0);
@@ -37,7 +38,7 @@ export default function TasksDashboard() {
     return <span>Error loading tasks: {error.message}</span>;
   }
 
-  const handleChange = (e: SyntheticEvent, newValue: number) => {
+  const handleTabChange = (e: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -50,42 +51,11 @@ export default function TasksDashboard() {
       <Typography gutterBottom variant="h4">
         James's Super Duper RTL Workshop
       </Typography>
-      <Tabs value={value} onChange={handleChange}>
-        <Tab
-          label={`All tasks [${taskCounts.all}]`}
-          sx={{
-            '&:focus': { outline: 'none' },
-          }}
-        />
-        <Tab
-          label={`Today [${taskCounts.today}]`}
-          sx={{
-            '&:focus': { outline: 'none' },
-          }}
-        />
-        <Tab
-          label={`Upcoming [${taskCounts.upcoming}]`}
-          sx={{
-            '&:focus': { outline: 'none' },
-          }}
-        />
-        <Tab
-          label={`Overdue [${taskCounts.overdue}]`}
-          sx={{
-            '&:focus': { outline: 'none' },
-          }}
-        />
-        <Tooltip title="Tasks marked as complete">
-          <div>
-            <Tab
-              label={`Archive [${taskCounts.archived}]`}
-              sx={{
-                '&:focus': { outline: 'none' },
-              }}
-            />
-          </div>
-        </Tooltip>
-      </Tabs>
+      <TasksDashboardTabs
+        value={value}
+        handleChange={handleTabChange}
+        taskCounts={taskCounts}
+      />
       <CustomTabPanel value={value} index={0}>
         <TasksTable
           data={data}
