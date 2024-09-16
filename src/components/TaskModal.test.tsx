@@ -130,7 +130,7 @@ describe('TaskModal', () => {
     expect(props.setOpen).toHaveBeenCalledWith(false);
   });
 
-  it("PUTs to the selected task's endpoint when the save button is clicked", async () => {
+  it("PUTs to the selected task's endpoint the expected payload when the save button is clicked", async () => {
     // -------------------- Arrange --------------------
     const testData = getTaskModalTestData();
     const spy = vi.spyOn(axios, 'put').mockResolvedValue(testData);
@@ -195,6 +195,67 @@ describe('TaskModal', () => {
     expect(spy).toHaveBeenCalledWith(
       `http://localhost:8000/tasks/${testData.id}`,
       expectedPayload,
+    );
+    expect(props.setOpen).toHaveBeenCalledWith(false);
+  });
+
+  it("PUTs to the selected task's endpoint the expected payload when the 'Mark as done' button is clicked", async () => {
+    // -------------------- Arrange --------------------
+    const testData = getTaskModalTestData();
+    const spy = vi.spyOn(axios, 'put').mockResolvedValue(testData);
+
+    const props = {
+      open: true,
+      setOpen: vi.fn(),
+      task: testData,
+      context: 'all' as const,
+    };
+    renderComponent({ Component: <TaskModal {...props} /> });
+
+    const user = userEvent.setup();
+
+    // -------------------- Act --------------------
+    const markAsDoneButton = screen.getByRole('button', {
+      name: 'Mark as done',
+    });
+    await user.click(markAsDoneButton);
+
+    // -------------------- Assert --------------------
+    const expectedPayload = {
+      ...testData.row,
+      done: true,
+    };
+    expect(spy).toHaveBeenCalledWith(
+      `http://localhost:8000/tasks/${testData.id}`,
+      expectedPayload,
+    );
+    expect(props.setOpen).toHaveBeenCalledWith(false);
+  });
+
+  it("DELETEs to the selected task's endpoint when the delete button is clicked", async () => {
+    // -------------------- Arrange --------------------
+    const testData = getTaskModalTestData();
+    const spy = vi.spyOn(axios, 'delete').mockResolvedValue(testData);
+
+    const props = {
+      open: true,
+      setOpen: vi.fn(),
+      task: testData,
+      context: 'all' as const,
+    };
+    renderComponent({ Component: <TaskModal {...props} /> });
+
+    const user = userEvent.setup();
+
+    // -------------------- Act --------------------
+    const deleteButton = screen.getByRole('button', {
+      name: 'Delete',
+    });
+    await user.click(deleteButton);
+
+    // -------------------- Assert --------------------
+    expect(spy).toHaveBeenCalledWith(
+      `http://localhost:8000/tasks/${testData.id}`,
     );
     expect(props.setOpen).toHaveBeenCalledWith(false);
   });
