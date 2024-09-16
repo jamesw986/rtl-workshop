@@ -14,35 +14,35 @@ export default function TasksDashboardPanels(props: TasksDashboardPanelsProps) {
 
   return (
     <>
-      <CustomTabPanel value={value} index={0}>
+      <CustomTabPanel value={value} index={0} title="all">
         <TasksTable
           data={data}
           dataReducer={tableDataReducers.allTasks}
           context="all"
         />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      <CustomTabPanel value={value} index={1} title="today">
         <TasksTable
           data={data}
           dataReducer={tableDataReducers.today}
           context="today"
         />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel value={value} index={2} title="upcoming">
         <TasksTable
           data={data}
           dataReducer={tableDataReducers.upcoming}
           context="upcoming"
         />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
+      <CustomTabPanel value={value} index={3} title="overdue">
         <TasksTable
           data={data}
           dataReducer={tableDataReducers.overdue}
           context="overdue"
         />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
+      <CustomTabPanel value={value} index={4} title="archive">
         <TasksTable
           data={data}
           dataReducer={tableDataReducers.archive}
@@ -57,18 +57,18 @@ interface TabPanelProps {
   children?: ReactNode;
   index: number;
   value: number;
+  title: string;
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, title } = props;
 
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`tabpanel-${index}`}
+      id={`tabpanel-${title}`}
       aria-labelledby={`tab-${index}`}
-      {...other}
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>

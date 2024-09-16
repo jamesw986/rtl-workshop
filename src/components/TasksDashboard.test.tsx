@@ -1,14 +1,24 @@
-import { expect, it, describe, vi } from 'vitest';
+import { expect, it, describe, vi, beforeEach, test } from 'vitest';
 import { screen } from '@testing-library/react';
 import TasksDashboard from './TasksDashboard';
-import { getTestData, renderComponent } from '../testHelpers';
+import {
+  getTestData,
+  getTodayTestData,
+  renderComponent,
+  transformTestDataDates,
+} from '../testHelpers';
 import { QueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 
 vi.mock('axios');
 
 describe('TasksDashboard', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   });
@@ -62,5 +72,40 @@ describe('TasksDashboard', () => {
     const title = await screen.findByText("James's Super Duper RTL Workshop");
 
     expect(title).toBeInTheDocument();
+  });
+
+  it('displays the correct table when tabs are clicked', async () => {
+    // Arrange
+    const testData = getTodayTestData();
+    vi.spyOn(axios, 'get').mockResolvedValue(testData);
+
+    renderComponent({ queryClient, Component: <TasksDashboard /> });
+
+    const user = userEvent.setup();
+
+    // Act
+    const todayTab = await screen.findByRole('tab', { name: 'today-tab' });
+    // Check tab is not selected
+    expect(todayTab).toHaveAttribute('aria-selected', 'false');
+
+    await user.click(todayTab);
+
+    // Assert
+    // Check tab is now selected
+    expect(todayTab).toHaveAttribute('aria-selected', 'true');
+
+    // This will return the header row as the first element, hence the shift
+    const tableRows = screen.getAllByRole('row');
+    tableRows.shift();
+
+    const data = transformTestDataDates(testData);
+    tableRows.forEach((row, index) => {
+      // We can use the jest-dom toHaveTextContent matcher to generically check for our row data
+      expect(row).toHaveTextContent(data[index].id);
+      expect(row).toHaveTextContent(data[index].title);
+      expect(row).toHaveTextContent(data[index].body);
+      expect(row).toHaveTextContent(data[index].created);
+      expect(row).toHaveTextContent(data[index].dueDate);
+    });
   });
 });

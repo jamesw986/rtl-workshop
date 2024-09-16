@@ -38,10 +38,10 @@ describe('TasksDashboardTabs', () => {
 
     // Assert
     /*
-         We can search by role, which is RTL's priority #1
-         query method. It is common to pass an options object as
-         the second arg with a property "name", which will match the
-         accessible name (usually matches corresponding display text).
+      We can search by role, which is RTL's priority #1
+      query method. It is common to pass an options object as
+      the second arg with a property "name", which will match the
+      accessible name (usually matches corresponding display text).
     */
     const dashboardTabs = await screen.findAllByRole('tab');
 

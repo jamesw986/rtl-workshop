@@ -27,6 +27,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
         sx={commonTabStyles}
       />
       <Tab
+        aria-label="today-tab"
         label={
           <Tooltip title="Tasks due today">
             <div>{`Today [${taskCounts.today}]`} </div>
@@ -35,6 +36,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
         sx={commonTabStyles}
       />
       <Tab
+        aria-label="upcoming-tab"
         label={
           <Tooltip title="Tasks due within a week">
             <div>{`Upcoming [${taskCounts.upcoming}]`} </div>
@@ -43,6 +45,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
         sx={commonTabStyles}
       />
       <Tab
+        aria-label="overdue-tab"
         label={
           <Tooltip title="Overdue tasks">
             <div>{`Overdue [${taskCounts.overdue}]`} </div>
@@ -51,6 +54,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
         sx={commonTabStyles}
       />
       <Tab
+        aria-label="archive-tab"
         label={
           <Tooltip title="Tasks marked as done">
             <div>{`Archive [${taskCounts.archived}]`} </div>
