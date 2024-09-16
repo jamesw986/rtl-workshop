@@ -11,6 +11,47 @@ interface TasksTableProps {
   context: 'all' | 'today' | 'upcoming' | 'overdue' | 'archive';
 }
 
+export default function TasksTable(props: TasksTableProps) {
+  const { data, dataReducer, context } = props;
+  const [taskModalOpen, setTaskModalOpen] = useState(false);
+  const [currentRowData, setCurrentRowData] = useState(
+    {} as GridRenderCellParams,
+  );
+
+  const tasks = dataReducer(data);
+
+  const handleOpen = (params: GridRenderCellParams) => {
+    setCurrentRowData(params);
+    setTaskModalOpen(true);
+  };
+
+  const columns = getColumns(handleOpen);
+
+  return (
+    <Box sx={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={tasks}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        disableRowSelectionOnClick
+      />
+      <TaskModal
+        open={taskModalOpen}
+        setOpen={setTaskModalOpen}
+        task={currentRowData}
+        context={context}
+      />
+    </Box>
+  );
+}
+
 const getColumns = (handleOpen: (params: GridRenderCellParams) => void) => [
   { field: 'id', headerName: 'ID', width: 90 },
   {
@@ -48,46 +89,13 @@ const getColumns = (handleOpen: (params: GridRenderCellParams) => void) => [
     headerName: 'Action',
     width: 100,
     renderCell: (params: GridRenderCellParams) => (
-      <Button onClick={() => handleOpen(params)}>Open</Button>
+      <Button sx={openButtonStyles} onClick={() => handleOpen(params)}>
+        Open
+      </Button>
     ),
   },
 ];
 
-export default function TasksTable(props: TasksTableProps) {
-  const { data, dataReducer, context } = props;
-  const [taskModalOpen, setTaskModalOpen] = useState(false);
-  const [currentRowData, setCurrentRowData] = useState({});
-
-  const tasks = dataReducer(data);
-
-  const handleOpen = (params: GridRenderCellParams) => {
-    setCurrentRowData(params);
-    setTaskModalOpen(true);
-  };
-
-  const columns = getColumns(handleOpen);
-
-  return (
-    <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={tasks}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        disableRowSelectionOnClick
-      />
-      <TaskModal
-        open={taskModalOpen}
-        setOpen={setTaskModalOpen}
-        task={currentRowData}
-        context={context}
-      />
-    </Box>
-  );
-}
+const openButtonStyles = {
+  '&:focus': { outline: 'none' },
+};

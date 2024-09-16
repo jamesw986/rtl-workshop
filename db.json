@@ -1,12 +1,6 @@
 {
   "tasks": [
     {
-      "id": "2",
-      "title": "Task title 2",
-      "body": "task body is much bigger than others",
-      "done": true
-    },
-    {
       "id": "63ece5ed-1954-4095-945e-26397ac634a0",
       "title": "new task yooo",
       "body": "new task body",

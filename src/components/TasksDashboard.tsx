@@ -1,11 +1,10 @@
-import { Grid, Box, Button, Typography } from '@mui/material';
+import { Grid, Button, Typography } from '@mui/material';
 import useGetTasks from '../hooks/useGetTasks';
 import { useState, SyntheticEvent } from 'react';
-import TasksTable from './TasksTable';
 import AddTask from './AddTask';
-import tableDataReducers from './utils/tableDataReducers';
 import useGetTaskCounts from '../hooks/useGetTaskCounts';
 import TasksDashboardTabs from './TasksDashboardTabs';
+import TasksDashboardPanels from './TasksDashboardPanels';
 
 export default function TasksDashboard() {
   const [value, setValue] = useState(0);
@@ -22,7 +21,7 @@ export default function TasksDashboard() {
 
   useGetTaskCounts({ setTaskCounts, data });
 
-  const handleTabChange = (e: SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_e: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -48,68 +47,12 @@ export default function TasksDashboard() {
         handleChange={handleTabChange}
         taskCounts={taskCounts}
       />
-      <CustomTabPanel value={value} index={0}>
-        <TasksTable
-          data={data}
-          dataReducer={tableDataReducers.allTasks}
-          context="all"
-        />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <TasksTable
-          data={data}
-          dataReducer={tableDataReducers.today}
-          context="today"
-        />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        <TasksTable
-          data={data}
-          dataReducer={tableDataReducers.upcoming}
-          context="upcoming"
-        />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        <TasksTable
-          data={data}
-          dataReducer={tableDataReducers.overdue}
-          context="overdue"
-        />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
-        <TasksTable
-          data={data}
-          dataReducer={tableDataReducers.archive}
-          context="archive"
-        />
-      </CustomTabPanel>
+      <TasksDashboardPanels value={value} data={data} />
       {addTask ? (
         <AddTask toggleAddTask={toggleAddTask} />
       ) : (
         <Button onClick={() => setAddTask(true)}>Add task</Button>
       )}
     </Grid>
-  );
-}
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
   );
 }

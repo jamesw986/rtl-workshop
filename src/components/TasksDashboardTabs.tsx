@@ -18,6 +18,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
   return (
     <Tabs value={value} onChange={handleChange}>
       <Tab
+        aria-label="all-tasks-tab"
         label={
           <Tooltip title="All open tasks">
             <div>{`All tasks [${taskCounts.all}]`} </div>

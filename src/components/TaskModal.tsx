@@ -22,7 +22,7 @@ interface TaskModalProps {
 export default function TaskModal(props: TaskModalProps) {
   const { open, setOpen, task, context } = props;
 
-  const [currentTask, setCurrentTask] = useState<Task>(blankTask);
+  const [currentTask, setCurrentTask] = useState({} as Task);
   const [taskTitle, setTaskTitle] = useState('');
   const [taskBody, setTaskBody] = useState('');
   const [taskDueDate, setTaskDueDate] = useState('');
@@ -77,44 +77,33 @@ export default function TaskModal(props: TaskModalProps) {
   };
 
   return (
-    <>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Task Editor</DialogTitle>
-        <DialogContent
-          sx={{ display: 'flex', flexDirection: 'column', gap: '36px' }}
-        >
-          <TextField
-            value={taskTitle}
-            label="Title"
-            variant="standard"
-            onChange={(e) => setTaskTitle(e.target.value)}
-          />
-          <TextField
-            value={taskBody}
-            label="Description"
-            variant="standard"
-            onChange={(e) => setTaskTitle(e.target.value)}
-          />
-          <DatePicker
-            label="Due date"
-            disablePast
-            value={dayjs(taskDueDate)}
-            onChange={(date) => date && setTaskDueDate(date.toString())}
-          />
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: 'center' }}>
-          <TaskModalActions context={context} handlers={handlers} />
-        </DialogActions>
-      </Dialog>
-    </>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>Task Editor</DialogTitle>
+      <DialogContent
+        sx={{ display: 'flex', flexDirection: 'column', gap: '36px' }}
+      >
+        <TextField
+          value={taskTitle}
+          label="Title"
+          variant="standard"
+          onChange={(e) => setTaskTitle(e.target.value)}
+        />
+        <TextField
+          value={taskBody}
+          label="Description"
+          variant="standard"
+          onChange={(e) => setTaskTitle(e.target.value)}
+        />
+        <DatePicker
+          label="Due date"
+          disablePast
+          value={dayjs(taskDueDate)}
+          onChange={(date) => date && setTaskDueDate(date.toString())}
+        />
+      </DialogContent>
+      <DialogActions sx={{ justifyContent: 'center' }}>
+        <TaskModalActions context={context} handlers={handlers} />
+      </DialogActions>
+    </Dialog>
   );
 }
-
-const blankTask = {
-  id: '',
-  title: '',
-  body: '',
-  done: false,
-  created: '',
-  dueDate: '',
-};
