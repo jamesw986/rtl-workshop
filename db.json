@@ -1,0 +1,46 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Task title 1",
+      "body": "task body",
+      "done": false
+    },
+    {
+      "id": 2,
+      "title": "Task title 2",
+      "body": "task body is much bigger than others",
+      "done": true
+    },
+    {
+      "id": 3,
+      "title": "Task title 3",
+      "body": "task body",
+      "done": false
+    },
+    {
+      "id": "63ece5ed-1954-4095-945e-26397ac634a0",
+      "title": "new task yooo",
+      "body": "new task body",
+      "dueDate": "2024-08-30T23:00:00.000Z",
+      "created": "2024-08-26T17:51:16.482Z",
+      "done": false
+    },
+    {
+      "id": "0ce8cf38-e6e1-41c5-b55e-3f928fc0890a",
+      "title": "another new task",
+      "body": "super cool body",
+      "dueDate": "2024-08-25T23:00:00.000Z",
+      "created": "2024-08-26T19:13:43.495Z",
+      "done": false
+    },
+    {
+      "id": "09ccbf27-14ea-4e3f-b25c-bbbfb8d538b8",
+      "title": "even ocoler task",
+      "body": "this is a really big task body to see how it displays in the table when the task description spans over multiple lines",
+      "dueDate": "2024-08-29T23:00:00.000Z",
+      "created": "2024-08-26T19:15:15.985Z",
+      "done": false
+    }
+  ]
+}
