@@ -145,6 +145,37 @@ export function getPaginationTestData(): TestData {
   };
 }
 
+export function getColumnSortingTestData(): TestData {
+  return {
+    data: [
+      {
+        id: uuidv4(),
+        title: 'All title 2',
+        body: 'All body 2',
+        dueDate: dayjs(Date.now()).hour(23).toISOString(),
+        created: dayjs(Date.now()).toISOString(),
+        done: false,
+      },
+      {
+        id: uuidv4(),
+        title: 'All title 3',
+        body: 'All body 3',
+        dueDate: dayjs(Date.now()).add(3, 'day').toISOString(),
+        created: dayjs(Date.now()).toISOString(),
+        done: false,
+      },
+      {
+        id: uuidv4(),
+        title: 'All title 1',
+        body: 'All body 1',
+        dueDate: dayjs(Date.now()).add(15, 'day').toISOString(),
+        created: dayjs(Date.now()).toISOString(),
+        done: false,
+      },
+    ],
+  };
+}
+
 export function transformTestDataDates(testData: TestData) {
   return testData.data.map((task) => {
     const formattedDueDate = dayjs(task.dueDate).format('DD/MM/YYYY');
