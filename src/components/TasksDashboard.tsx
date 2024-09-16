@@ -3,7 +3,7 @@ import useGetTasks from '../hooks/useGetTasks';
 import { useState, SyntheticEvent } from 'react';
 import TasksTable from './TasksTable';
 import AddTask from './AddTask';
-import tableDataReducers from './utils/tableDataReducer';
+import tableDataReducers from './utils/tableDataReducers';
 
 export default function TasksDashboard() {
   const [value, setValue] = useState(0);
@@ -52,6 +52,12 @@ export default function TasksDashboard() {
           }}
         />
         <Tab
+          label="Overdue"
+          sx={{
+            '&:focus': { outline: 'none' },
+          }}
+        />
+        <Tab
           label="Archive"
           sx={{
             '&:focus': { outline: 'none' },
@@ -59,16 +65,39 @@ export default function TasksDashboard() {
         />
       </Tabs>
       <CustomTabPanel value={value} index={0}>
-        <TasksTable data={data} dataReducer={tableDataReducers.allTasks} />
+        <TasksTable
+          data={data}
+          dataReducer={tableDataReducers.allTasks}
+          context="all"
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <TasksTable data={data} dataReducer={tableDataReducers.today} />
+        <TasksTable
+          data={data}
+          dataReducer={tableDataReducers.today}
+          context="today"
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <TasksTable data={data} dataReducer={tableDataReducers.upcoming} />
+        <TasksTable
+          data={data}
+          dataReducer={tableDataReducers.upcoming}
+          context="upcoming"
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <TasksTable data={data} dataReducer={tableDataReducers.archived} />
+        <TasksTable
+          data={data}
+          dataReducer={tableDataReducers.overdue}
+          context="overdue"
+        />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={4}>
+        <TasksTable
+          data={data}
+          dataReducer={tableDataReducers.archive}
+          context="archive"
+        />
       </CustomTabPanel>
       {addTask ? (
         <AddTask toggleAddTask={toggleAddTask} />

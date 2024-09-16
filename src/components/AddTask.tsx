@@ -50,6 +50,7 @@ export default function AddTask(props) {
       />
       <DatePicker
         label="Due date"
+        disablePast
         onChange={(date) => date && setDueDate(date)}
       />
       <Box>

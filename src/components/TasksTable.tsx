@@ -1,14 +1,22 @@
-import { DataGrid } from '@mui/x-data-grid';
-import { Box } from '@mui/material';
+import {
+  DataGrid,
+  GridCallbackDetails,
+  GridRenderCellParams,
+  GridRowSelectionModel,
+  useGridApiRef,
+} from '@mui/x-data-grid';
+import { Box, Button } from '@mui/material';
 import Task from '../types/Task';
 import dayjs, { Dayjs } from 'dayjs';
+import { useState } from 'react';
+import TaskModal from './TaskModal';
 
 interface TasksTableProps {
   data: Task[];
   dataReducer: (data: Task[]) => Task[];
 }
 
-const columns = [
+const getColumns = (handleOpen) => [
   { field: 'id', headerName: 'ID', width: 90 },
   {
     field: 'title',
@@ -40,12 +48,29 @@ const columns = [
       return `${dayjs(value).format('DD/MM/YYYY')}`;
     },
   },
+  {
+    field: 'action',
+    headerName: 'Action',
+    width: 100,
+    renderCell: (params: GridRenderCellParams) => (
+      <Button onClick={() => handleOpen(params)}>Open</Button>
+    ),
+  },
 ];
 
 export default function TasksTable(props: TasksTableProps) {
-  const { data, dataReducer } = props;
+  const { data, dataReducer, context } = props;
+  const [taskModalOpen, setTaskModalOpen] = useState(false);
+  const [currentRowData, setCurrentRowData] = useState({});
 
   const tasks = dataReducer(data);
+
+  const handleOpen = (params: GridRenderCellParams) => {
+    setCurrentRowData(params);
+    setTaskModalOpen(true);
+  };
+
+  const columns = getColumns(handleOpen);
 
   return (
     <Box sx={{ height: 400, width: '100%' }}>
@@ -60,8 +85,13 @@ export default function TasksTable(props: TasksTableProps) {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
         disableRowSelectionOnClick
+      />
+      <TaskModal
+        open={taskModalOpen}
+        setOpen={setTaskModalOpen}
+        task={currentRowData}
+        context={context}
       />
     </Box>
   );
