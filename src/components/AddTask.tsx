@@ -5,7 +5,11 @@ import dayjs, { Dayjs } from 'dayjs';
 import usePostTask from '../hooks/usePostTask';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function AddTask(props) {
+interface AddTaskProps {
+  toggleAddTask: () => void;
+}
+
+export default function AddTask(props: AddTaskProps) {
   const { toggleAddTask } = props;
 
   const [title, setTitle] = useState('');

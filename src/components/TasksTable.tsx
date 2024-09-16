@@ -1,10 +1,4 @@
-import {
-  DataGrid,
-  GridCallbackDetails,
-  GridRenderCellParams,
-  GridRowSelectionModel,
-  useGridApiRef,
-} from '@mui/x-data-grid';
+import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, Button } from '@mui/material';
 import Task from '../types/Task';
 import dayjs, { Dayjs } from 'dayjs';
@@ -14,9 +8,10 @@ import TaskModal from './TaskModal';
 interface TasksTableProps {
   data: Task[];
   dataReducer: (data: Task[]) => Task[];
+  context: 'all' | 'today' | 'upcoming' | 'overdue' | 'archive';
 }
 
-const getColumns = (handleOpen) => [
+const getColumns = (handleOpen: (params: GridRenderCellParams) => void) => [
   { field: 'id', headerName: 'ID', width: 90 },
   {
     field: 'title',

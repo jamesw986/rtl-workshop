@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import tableDataReducers from '../components/utils/tableDataReducers';
 import TaskCounts from '../types/TaskCounts';
+import Task from '../types/Task';
 
 interface useGetTaskCountsProps {
   setTaskCounts: (taskCounts: TaskCounts) => void;
-  data: any;
+  data: Task[] | undefined;
 }
 
 export default function useGetTaskCounts(props: useGetTaskCountsProps) {
@@ -20,5 +21,5 @@ export default function useGetTaskCounts(props: useGetTaskCountsProps) {
         archived: tableDataReducers.archive(data).length,
       });
     }
-  }, [data]);
+  }, [data, setTaskCounts]);
 }

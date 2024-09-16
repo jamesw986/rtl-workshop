@@ -1,14 +1,6 @@
-import {
-  Grid,
-  Tabs,
-  Tab,
-  Box,
-  Button,
-  Typography,
-  Tooltip,
-} from '@mui/material';
+import { Grid, Box, Button, Typography } from '@mui/material';
 import useGetTasks from '../hooks/useGetTasks';
-import { useState, SyntheticEvent, useEffect } from 'react';
+import { useState, SyntheticEvent } from 'react';
 import TasksTable from './TasksTable';
 import AddTask from './AddTask';
 import tableDataReducers from './utils/tableDataReducers';
@@ -28,15 +20,7 @@ export default function TasksDashboard() {
 
   const { isPending, isError, data, error } = useGetTasks();
 
-  useGetTaskCounts(setTaskCounts, data);
-
-  if (isPending) {
-    return <span>Loading tasks...</span>;
-  }
-
-  if (isError) {
-    return <span>Error loading tasks: {error.message}</span>;
-  }
+  useGetTaskCounts({ setTaskCounts, data });
 
   const handleTabChange = (e: SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -45,6 +29,14 @@ export default function TasksDashboard() {
   const toggleAddTask = () => {
     setAddTask(!addTask);
   };
+
+  if (isPending) {
+    return <span>Loading tasks...</span>;
+  }
+
+  if (isError) {
+    return <span>Error loading tasks: {error.message}</span>;
+  }
 
   return (
     <Grid container direction="column" alignItems="center">
@@ -100,6 +92,12 @@ export default function TasksDashboard() {
   );
 }
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
@@ -114,10 +112,4 @@ function CustomTabPanel(props: TabPanelProps) {
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
-}
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
 }

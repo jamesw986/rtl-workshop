@@ -2,9 +2,13 @@ import { Tab, Tabs, Tooltip } from '@mui/material';
 import TaskCounts from '../types/TaskCounts';
 import { SyntheticEvent } from 'react';
 
+const commonTabStyles = {
+  '&:focus': { outline: 'none' },
+};
+
 interface TasksDashboardTabsProps {
   value: number;
-  handleChange: (e: SyntheticEvent) => void;
+  handleChange: (e: SyntheticEvent, newValue: number) => void;
   taskCounts: TaskCounts;
 }
 
@@ -19,9 +23,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
             <div>{`All tasks [${taskCounts.all}]`} </div>
           </Tooltip>
         }
-        sx={{
-          '&:focus': { outline: 'none' },
-        }}
+        sx={commonTabStyles}
       />
       <Tab
         label={
@@ -29,9 +31,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
             <div>{`Today [${taskCounts.today}]`} </div>
           </Tooltip>
         }
-        sx={{
-          '&:focus': { outline: 'none' },
-        }}
+        sx={commonTabStyles}
       />
       <Tab
         label={
@@ -39,9 +39,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
             <div>{`Upcoming [${taskCounts.upcoming}]`} </div>
           </Tooltip>
         }
-        sx={{
-          '&:focus': { outline: 'none' },
-        }}
+        sx={commonTabStyles}
       />
       <Tab
         label={
@@ -49,9 +47,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
             <div>{`Overdue [${taskCounts.overdue}]`} </div>
           </Tooltip>
         }
-        sx={{
-          '&:focus': { outline: 'none' },
-        }}
+        sx={commonTabStyles}
       />
       <Tab
         label={
@@ -59,9 +55,7 @@ export default function TasksDashboardTabs(props: TasksDashboardTabsProps) {
             <div>{`Archive [${taskCounts.archived}]`} </div>
           </Tooltip>
         }
-        sx={{
-          '&:focus': { outline: 'none' },
-        }}
+        sx={commonTabStyles}
       />
     </Tabs>
   );

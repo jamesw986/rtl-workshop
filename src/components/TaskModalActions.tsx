@@ -1,8 +1,14 @@
 import { Button } from '@mui/material';
-import { FC } from 'react';
 
-export default function TaskModalActions({ context, handlers }) {
+interface TaskModalActionsProps {
+  context: 'all' | 'today' | 'upcoming' | 'overdue' | 'archive';
+  handlers: Record<string, () => void>;
+}
+
+export default function TaskModalActions(props: TaskModalActionsProps) {
+  const { context, handlers } = props;
   const { handleClose, handleSave, handleDone, handleDelete } = handlers;
+
   if (context === 'archive') {
     return (
       <>
