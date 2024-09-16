@@ -1,8 +1,9 @@
 import { Grid, Tabs, Tab, Box, Button, Typography } from '@mui/material';
 import useGetTasks from '../hooks/useGetTasks';
 import { useState, SyntheticEvent } from 'react';
-import TasksTableV2 from './TasksTableV2';
+import TasksTable from './TasksTable';
 import AddTask from './AddTask';
+import tableDataReducers from './utils/tableDataReducer';
 
 export default function TasksDashboard() {
   const [value, setValue] = useState(0);
@@ -58,7 +59,16 @@ export default function TasksDashboard() {
         />
       </Tabs>
       <CustomTabPanel value={value} index={0}>
-        <TasksTableV2 data={data} />
+        <TasksTable data={data} dataReducer={tableDataReducers.allTasks} />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <TasksTable data={data} dataReducer={tableDataReducers.today} />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        <TasksTable data={data} dataReducer={tableDataReducers.upcoming} />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={3}>
+        <TasksTable data={data} dataReducer={tableDataReducers.archived} />
       </CustomTabPanel>
       {addTask ? (
         <AddTask toggleAddTask={toggleAddTask} />

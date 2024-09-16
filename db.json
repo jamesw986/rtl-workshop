@@ -1,19 +1,19 @@
 {
   "tasks": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Task title 1",
       "body": "task body",
       "done": false
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Task title 2",
       "body": "task body is much bigger than others",
       "done": true
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Task title 3",
       "body": "task body",
       "done": false
@@ -40,6 +40,14 @@
       "body": "this is a really big task body to see how it displays in the table when the task description spans over multiple lines",
       "dueDate": "2024-08-29T23:00:00.000Z",
       "created": "2024-08-26T19:15:15.985Z",
+      "done": false
+    },
+    {
+      "id": "b0244db2-ff1b-4210-82ff-32e40e834f40",
+      "title": "today title",
+      "body": "today body",
+      "dueDate": "2024-09-02T23:00:00.000Z",
+      "created": "2024-09-03T16:03:51.683Z",
       "done": false
     }
   ]
