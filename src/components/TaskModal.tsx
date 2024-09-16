@@ -92,7 +92,7 @@ export default function TaskModal(props: TaskModalProps) {
           value={taskBody}
           label="Description"
           variant="standard"
-          onChange={(e) => setTaskTitle(e.target.value)}
+          onChange={(e) => setTaskBody(e.target.value)}
         />
         <DatePicker
           label="Due date"

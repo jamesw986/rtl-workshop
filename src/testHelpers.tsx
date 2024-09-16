@@ -194,7 +194,7 @@ export function transformTestDataDates(testData: TestData) {
 }
 
 export function getTaskModalTestData() {
-  const id = uuidv4;
+  const id = uuidv4();
 
   return {
     id,

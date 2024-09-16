@@ -13,14 +13,14 @@ describe('AddTask', () => {
     defaultOptions: { queries: { retry: false } },
   });
 
-  it('posts to the tasks endpoint on submit', async () => {
+  it('POSTs to the tasks endpoint on submit', async () => {
     // -------------------- Arrange --------------------
     const spy = vi
       .spyOn(axios, 'post')
       .mockResolvedValue('successfully posted new task');
 
     const props = {
-      toggleAddTask: () => null,
+      toggleAddTask: vi.fn(),
     };
     renderComponent({ queryClient, Component: <AddTask {...props} /> });
 
@@ -96,7 +96,7 @@ describe('AddTask', () => {
   it('prevents setting the due date to a past date', async () => {
     // -------------------- Arrange --------------------
     const props = {
-      toggleAddTask: () => null,
+      toggleAddTask: vi.fn(),
     };
     renderComponent({ queryClient, Component: <AddTask {...props} /> });
 
