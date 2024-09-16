@@ -24,12 +24,12 @@ describe('TasksDashboard', () => {
   });
 
   it('displays a loading message when retrieving tasks', () => {
-    // Arrange
+    // -------------------- Arrange --------------------
     renderComponent({ queryClient, Component: <TasksDashboard /> });
 
-    // Act N/A
+    // -------------------- Act -------------------- N/A
 
-    // Assert
+    // -------------------- Assert --------------------
     /*
      We can use getByText here as we are not waiting for any
      asynchronous processes to complete, this text should be available
@@ -41,14 +41,14 @@ describe('TasksDashboard', () => {
   });
 
   it('displays an error message when task retrieval fails', async () => {
-    // Arrange
+    // -------------------- Arrange --------------------
     vi.spyOn(axios, 'get').mockRejectedValue(new Error('Request failed'));
 
     renderComponent({ queryClient, Component: <TasksDashboard /> });
 
-    // Act N/A
+    // -------------------- Act -------------------- N/A
 
-    // Assert
+    // -------------------- Assert --------------------
     /*
      We need to use findByText here to wait for the asynchronous
      call to our API to resolve
@@ -61,21 +61,21 @@ describe('TasksDashboard', () => {
   });
 
   it('renders with the correct title', async () => {
-    // Arrange
+    // -------------------- Arrange --------------------
     vi.spyOn(axios, 'get').mockResolvedValue(getTestData());
 
     renderComponent({ queryClient, Component: <TasksDashboard /> });
 
-    // Act N/A
+    // -------------------- Act -------------------- N/A
 
-    // Assert
+    // -------------------- Assert --------------------
     const title = await screen.findByText("James's Super Duper RTL Workshop");
 
     expect(title).toBeInTheDocument();
   });
 
   it('displays the correct table when tabs are clicked', async () => {
-    // Arrange
+    // -------------------- Arrange --------------------
     const testData = getTodayTestData();
     vi.spyOn(axios, 'get').mockResolvedValue(testData);
 
@@ -83,14 +83,14 @@ describe('TasksDashboard', () => {
 
     const user = userEvent.setup();
 
-    // Act
+    // -------------------- Act --------------------
     const todayTab = await screen.findByRole('tab', { name: 'today-tab' });
     // Check tab is not selected
     expect(todayTab).toHaveAttribute('aria-selected', 'false');
 
     await user.click(todayTab);
 
-    // Assert
+    // -------------------- Assert --------------------
     // Check tab is now selected
     expect(todayTab).toHaveAttribute('aria-selected', 'true');
 
@@ -107,5 +107,28 @@ describe('TasksDashboard', () => {
       expect(row).toHaveTextContent(data[index].created);
       expect(row).toHaveTextContent(data[index].dueDate);
     });
+  });
+
+  it('opens the add task form when selected', async () => {
+    // -------------------- Arrange --------------------
+    renderComponent({ queryClient, Component: <TasksDashboard /> });
+
+    const user = userEvent.setup();
+
+    // Check the cancel and submit buttons do not exist yet, meaning the add task form is disabled
+    let cancelButton = screen.queryByRole('button', { name: 'Cancel' });
+    let submitButton = screen.queryByRole('button', { name: 'Submit' });
+
+    expect(cancelButton).not.toBeInTheDocument();
+    expect(submitButton).not.toBeInTheDocument();
+
+    // -------------------- Act --------------------
+    const addTaskButton = screen.getByRole('button', { name: 'Add task' });
+    await user.click(addTaskButton);
+
+    cancelButton = screen.getByRole('button', { name: 'Cancel' });
+    submitButton = screen.getByRole('button', { name: 'Submit' });
+    expect(cancelButton).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
   });
 });

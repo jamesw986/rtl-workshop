@@ -16,7 +16,7 @@ describe('TasksDashboardTabs', () => {
     that would be preferable in practice
   */
   it('renders with the correct tabs (complex)', async () => {
-    // Arrange
+    // -------------------- Arrange --------------------
     const props = {
       value: 1,
       handleChange: vi.fn(),
@@ -34,9 +34,9 @@ describe('TasksDashboardTabs', () => {
       Component: <TasksDashboardTabs {...props} />,
     });
 
-    // Act N/A
+    // -------------------- Act -------------------- N/A
 
-    // Assert
+    // -------------------- Assert --------------------
     /*
       We can search by role, which is RTL's priority #1
       query method. It is common to pass an options object as
@@ -65,7 +65,7 @@ describe('TasksDashboardTabs', () => {
   });
 
   it('renders with the correct tabs (simple)', async () => {
-    // Arrange
+    // -------------------- Arrange --------------------
     const props = {
       value: 1,
       handleChange: vi.fn(),
@@ -83,9 +83,9 @@ describe('TasksDashboardTabs', () => {
       Component: <TasksDashboardTabs {...props} />,
     });
 
-    // Act N/A
+    // -------------------- Act -------------------- N/A
 
-    // Assert
+    // -------------------- Assert --------------------
     const allTasksTab = await screen.findByText('All tasks', { exact: false });
     const todayTab = screen.getByText('Today', { exact: false });
     const upcomingTab = screen.getByText('Upcoming', { exact: false });
@@ -100,7 +100,7 @@ describe('TasksDashboardTabs', () => {
   });
 
   it('renders tabs with the correct counts', async () => {
-    // Arrange
+    // -------------------- Arrange --------------------
     const props = {
       value: 1,
       handleChange: vi.fn(),
@@ -118,9 +118,9 @@ describe('TasksDashboardTabs', () => {
       Component: <TasksDashboardTabs {...props} />,
     });
 
-    // Act N/A
+    // -------------------- Act -------------------- N/A
 
-    // Assert
+    // -------------------- Assert --------------------
     const allTasksTab = await screen.findByText(
       `All tasks [${props.taskCounts.all}]`,
     );

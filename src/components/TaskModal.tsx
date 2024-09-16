@@ -15,7 +15,7 @@ import { GridRenderCellParams } from '@mui/x-data-grid';
 interface TaskModalProps {
   open: boolean;
   setOpen: (arg: boolean) => void;
-  task: GridRenderCellParams;
+  task: Partial<GridRenderCellParams>;
   context: 'all' | 'today' | 'upcoming' | 'overdue' | 'archive';
 }
 
@@ -34,9 +34,9 @@ export default function TaskModal(props: TaskModalProps) {
   // task.row may be undefined on initial render
   useEffect(() => {
     setCurrentTask(task.row);
-    setTaskTitle(task.row?.title);
-    setTaskBody(task.row?.body);
-    setTaskDueDate(task.row?.dueDate);
+    setTaskTitle(task.row?.title || '');
+    setTaskBody(task.row?.body || '');
+    setTaskDueDate(task.row?.dueDate || '');
     setTaskId(task.id as string);
   }, [task]);
 

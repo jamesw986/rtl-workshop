@@ -7,13 +7,17 @@ import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import Task from './types/Task';
 
+const defaultQueryClient = new QueryClient({
+  defaultOptions: { queries: { retry: false } },
+});
+
 interface RenderComponentProps {
-  queryClient: QueryClient;
+  queryClient?: QueryClient;
   Component: ReactNode;
 }
 
 export function renderComponent(props: RenderComponentProps) {
-  const { queryClient, Component } = props;
+  const { queryClient = defaultQueryClient, Component } = props;
 
   return render(
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -187,4 +191,20 @@ export function transformTestDataDates(testData: TestData) {
       created: formattedCreationDate,
     };
   });
+}
+
+export function getTaskModalTestData() {
+  const id = uuidv4;
+
+  return {
+    id,
+    row: {
+      id,
+      title: 'test title 1',
+      body: 'test body 1',
+      dueDate: dayjs(Date.now()).hour(23).toISOString(),
+      created: dayjs(Date.now()).toISOString(),
+      done: false,
+    },
+  };
 }

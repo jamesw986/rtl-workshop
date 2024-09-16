@@ -5,6 +5,7 @@ import {
   getColumnSortingTestData,
   getOverdueTestData,
   getPaginationTestData,
+  getTestData,
   getTodayTestData,
   getUpcomingTestData,
   renderComponent,
@@ -14,7 +15,7 @@ import {
 import TasksTable from './TasksTable';
 import tableDataReducers from './utils/tableDataReducers';
 import { QueryClient } from '@tanstack/react-query';
-import { screen, within } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 function assertHeadersHaveRendered(headers: HTMLElement[]) {
@@ -51,7 +52,7 @@ describe('TasksTable', () => {
 
   describe('Table data', () => {
     it("renders the 'All Tasks' table with the expected data", async () => {
-      // Arrange
+      // -------------------- Arrange --------------------
       const testData = getAllTasksTestData();
 
       const props = {
@@ -62,9 +63,9 @@ describe('TasksTable', () => {
 
       renderComponent({ queryClient, Component: <TasksTable {...props} /> });
 
-      // Act N/A
+      // -------------------- Act -------------------- N/A
 
-      // Assert
+      // -------------------- Assert --------------------
       const headers = await screen.findAllByRole('columnheader');
       assertHeadersHaveRendered(headers);
 
@@ -74,7 +75,7 @@ describe('TasksTable', () => {
     });
 
     it("renders the 'Today' table with the expected data", async () => {
-      // Arrange
+      // -------------------- Arrange --------------------
       const testData = getTodayTestData();
 
       const props = {
@@ -84,10 +85,16 @@ describe('TasksTable', () => {
       };
       renderComponent({ queryClient, Component: <TasksTable {...props} /> });
 
-      // Act N/A
+      // -------------------- Act -------------------- N/A
 
-      // Assert
-      const headers = await screen.findAllByRole('columnheader');
+      // -------------------- Assert --------------------
+      /*
+        Wrapping a getBy query inside a waitFor call is equivalent to a findBy query.
+        This is however, bad practice. When querying for elements that will appear in the future,
+        always use findBy queries. It is simpler - enhancing readability, and provides better
+        error messages
+      */
+      const headers = await waitFor(() => screen.getAllByRole('columnheader'));
       assertHeadersHaveRendered(headers);
 
       const tableRows = screen.getAllByRole('row');
@@ -96,7 +103,7 @@ describe('TasksTable', () => {
     });
 
     it("renders the 'Upcoming' table with the expected data", async () => {
-      // Arrange
+      // -------------------- Arrange --------------------
       const testData = getUpcomingTestData();
 
       const props = {
@@ -106,9 +113,9 @@ describe('TasksTable', () => {
       };
       renderComponent({ queryClient, Component: <TasksTable {...props} /> });
 
-      // Act N/A
+      // -------------------- Act -------------------- N/A
 
-      // Assert
+      // -------------------- Assert --------------------
       const headers = await screen.findAllByRole('columnheader');
       assertHeadersHaveRendered(headers);
 
@@ -118,7 +125,7 @@ describe('TasksTable', () => {
     });
 
     it("renders the 'Overdue' table with the expected data", async () => {
-      // Arrange
+      // -------------------- Arrange --------------------
       const testData = getOverdueTestData();
 
       const props = {
@@ -128,9 +135,9 @@ describe('TasksTable', () => {
       };
       renderComponent({ queryClient, Component: <TasksTable {...props} /> });
 
-      // Act N/A
+      // -------------------- Act -------------------- N/A
 
-      // Assert
+      // -------------------- Assert --------------------
       const headers = await screen.findAllByRole('columnheader');
       assertHeadersHaveRendered(headers);
 
@@ -140,7 +147,7 @@ describe('TasksTable', () => {
     });
 
     it("renders the 'Archive' table with the expected data", async () => {
-      // Arrange
+      // -------------------- Arrange --------------------
       const testData = getArchiveTestData();
 
       const props = {
@@ -150,9 +157,9 @@ describe('TasksTable', () => {
       };
       renderComponent({ queryClient, Component: <TasksTable {...props} /> });
 
-      // Act N/A
+      // -------------------- Act -------------------- N/A
 
-      // Assert
+      // -------------------- Assert --------------------
       const headers = await screen.findAllByRole('columnheader');
       assertHeadersHaveRendered(headers);
 
@@ -164,7 +171,7 @@ describe('TasksTable', () => {
 
   describe('Pagination', () => {
     it('paginates table results', async () => {
-      // Arrange
+      // -------------------- Arrange --------------------
       const testData = getPaginationTestData();
 
       const props = {
@@ -179,9 +186,9 @@ describe('TasksTable', () => {
         Component: <TasksTable {...props} />,
       });
 
-      // Act N/A
+      // -------------------- Act -------------------- N/A
 
-      // Assert
+      // -------------------- Assert --------------------
       /*
         Sometimes we may not have any direct access to the element we need. Ideally we
         would improve accessibility ourselves, using semantic HTML, aria attributes or IDs,
@@ -210,7 +217,7 @@ describe('TasksTable', () => {
     });
 
     it('changes page when the pagination next button is clicked', async () => {
-      // Arrange
+      // -------------------- Arrange --------------------
       const testData = getPaginationTestData();
 
       const props = {
@@ -226,7 +233,7 @@ describe('TasksTable', () => {
 
       const user = userEvent.setup();
 
-      // Act
+      // -------------------- Act --------------------
       const nextPageButton = screen.getByRole('button', {
         // We have derived the name here from the element's aria-label
         name: 'Go to next page',
@@ -235,7 +242,7 @@ describe('TasksTable', () => {
       // Remember to await userEvents
       await user.click(nextPageButton);
 
-      // Assert
+      // -------------------- Assert --------------------
       /*
         Since queries return DOM nodes (specifically the Element interface), we can use any methods from the DOM API
         present on that interface. As mentioned before, this is NOT recommended and is purely for demo purposes.
@@ -253,7 +260,7 @@ describe('TasksTable', () => {
     });
 
     it('changes page when the pagination previous button is clicked', async () => {
-      // Arrange
+      // -------------------- Arrange --------------------
       const testData = getPaginationTestData();
 
       const props = {
@@ -269,7 +276,7 @@ describe('TasksTable', () => {
 
       const user = userEvent.setup();
 
-      // Act
+      // -------------------- Act --------------------
       /*
        The getByRole approach in the last test is the preferred approach,
        but this is another viable option. getByLabelText is primarily aimed
@@ -290,7 +297,7 @@ describe('TasksTable', () => {
 
   describe('Column sorting', () => {
     it('sorts the title column', async () => {
-      // Arrange
+      // -------------------- Arrange --------------------
       const testData = getColumnSortingTestData();
 
       const props = {
@@ -306,23 +313,49 @@ describe('TasksTable', () => {
       tableRows.shift();
       assertTableDataHasRendered({ testData, tableRows });
 
-      // Act
+      // -------------------- Act --------------------
       const titleColumn = screen.getByRole('columnheader', { name: 'Title' });
       const sortButton = within(titleColumn).getByTitle('Sort');
 
-      // Assert column is sorted in ascending order
+      // -------------------- Assert -------------------- column is sorted in ascending order
       await user.click(sortButton);
       let expectedSortedData = {
         data: testData.data.toSorted(),
       };
       assertTableDataHasRendered({ testData: expectedSortedData, tableRows });
 
-      // Assert column is sorted in descending order
+      // -------------------- Assert -------------------- column is sorted in descending order
       await user.click(sortButton);
       expectedSortedData = {
         data: testData.data.sort((a, b) => b - a),
       };
       assertTableDataHasRendered({ testData: expectedSortedData, tableRows });
+    });
+  });
+
+  describe('Task editor', () => {
+    it("opens the task editor on clicking a task's 'open' button", async () => {
+      // -------------------- Arrange --------------------
+      const testData = getTestData();
+      const props = {
+        data: testData.data,
+        dataReducer: tableDataReducers.allTasks,
+        context: 'all' as const,
+      };
+      renderComponent({ queryClient, Component: <TasksTable {...props} /> });
+
+      const user = userEvent.setup();
+
+      // -------------------- Act -------------------- N/A
+      const openButton = await screen.findByRole('button', { name: 'Open' });
+      await user.click(openButton);
+
+      // -------------------- Assert --------------------
+      const taskEditor = screen.getByRole('dialog', {
+        name: 'Task Editor',
+      });
+
+      expect(taskEditor).toBeInTheDocument();
     });
   });
 });

@@ -4,14 +4,32 @@ A simple task management app to showcase writing tests using React Testing Libra
 
 ## Getting started
 
-### Install pnpm
+### Running the application
 
-npm i -g pnpm
+#### Install pnpm
 
-### Install project dependencies
+`npm i -g pnpm`
 
-pnpm i
+#### Install project dependencies
 
-### Run the application
+`pnpm i`
 
-pnpm run start
+#### Run the application
+
+`pnpm run start`
+
+### React Testing
+
+#### Install Node 20+
+
+The array method "toSorted" is used in one of the tests, which is only supported by Node 20+.
+
+Assuming you have NVM installed in your EC2, please run `nvm install --lts`. This will install the latest
+LTS version of Node (v20 at the time of writing) and use it. If you already have this version installed and
+need to change to it run `nvm use 20` or `nvm use node` or `nvm use --lts`
+
+#### Run the tests
+
+To run all tests run `pnpm run test`
+
+To run a single test file run `pnpm run test -- path/to/test`
