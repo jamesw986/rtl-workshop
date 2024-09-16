@@ -1,15 +1,33 @@
-import { Grid, Tabs, Tab, Box, Button, Typography } from '@mui/material';
+import {
+  Grid,
+  Tabs,
+  Tab,
+  Box,
+  Button,
+  Typography,
+  Tooltip,
+} from '@mui/material';
 import useGetTasks from '../hooks/useGetTasks';
-import { useState, SyntheticEvent } from 'react';
+import { useState, SyntheticEvent, useEffect } from 'react';
 import TasksTable from './TasksTable';
 import AddTask from './AddTask';
 import tableDataReducers from './utils/tableDataReducers';
+import useGetTaskCounts from '../hooks/useGetTaskCounts';
 
 export default function TasksDashboard() {
   const [value, setValue] = useState(0);
   const [addTask, setAddTask] = useState(false);
+  const [taskCounts, setTaskCounts] = useState({
+    all: 0,
+    today: 0,
+    upcoming: 0,
+    overdue: 0,
+    archived: 0,
+  });
 
   const { isPending, isError, data, error } = useGetTasks();
+
+  useGetTaskCounts(setTaskCounts, data);
 
   if (isPending) {
     return <span>Loading tasks...</span>;
@@ -34,35 +52,39 @@ export default function TasksDashboard() {
       </Typography>
       <Tabs value={value} onChange={handleChange}>
         <Tab
-          label="All tasks"
+          label={`All tasks [${taskCounts.all}]`}
           sx={{
             '&:focus': { outline: 'none' },
           }}
         />
         <Tab
-          label="Today"
+          label={`Today [${taskCounts.today}]`}
           sx={{
             '&:focus': { outline: 'none' },
           }}
         />
         <Tab
-          label="Upcoming"
+          label={`Upcoming [${taskCounts.upcoming}]`}
           sx={{
             '&:focus': { outline: 'none' },
           }}
         />
         <Tab
-          label="Overdue"
+          label={`Overdue [${taskCounts.overdue}]`}
           sx={{
             '&:focus': { outline: 'none' },
           }}
         />
-        <Tab
-          label="Archive"
-          sx={{
-            '&:focus': { outline: 'none' },
-          }}
-        />
+        <Tooltip title="Tasks marked as complete">
+          <div>
+            <Tab
+              label={`Archive [${taskCounts.archived}]`}
+              sx={{
+                '&:focus': { outline: 'none' },
+              }}
+            />
+          </div>
+        </Tooltip>
       </Tabs>
       <CustomTabPanel value={value} index={0}>
         <TasksTable

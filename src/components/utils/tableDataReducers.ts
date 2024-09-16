@@ -8,8 +8,10 @@ const tableDataReducers = {
   archive: archiveTableFunc,
 };
 
+const isTaskDone = (task: Task) => task.done === true;
+
 function allTasksTableFunc(data: Task[]) {
-  return data.filter((task) => task.done !== true);
+  return data.filter((task) => !isTaskDone(task));
 }
 
 function todayTableFunc(data: Task[]) {
@@ -17,7 +19,7 @@ function todayTableFunc(data: Task[]) {
 
   return data.filter((task) => {
     const dueDate = new Date(task.dueDate).toDateString();
-    return dueDate === today;
+    return !isTaskDone(task) && dueDate === today;
   });
 }
 
@@ -29,12 +31,12 @@ function upcomingTableFunc(data: Task[]) {
 
   return data.filter((task) => {
     const dueDate = new Date(task.dueDate);
-    return dueDate >= today && dueDate <= nextWeek;
+    return !isTaskDone(task) && dueDate >= today && dueDate <= nextWeek;
   });
 }
 
 function archiveTableFunc(data: Task[]) {
-  return data.filter((task) => task.done === true);
+  return data.filter(isTaskDone);
 }
 
 function overdueTableFunc(data: Task[]) {
@@ -43,7 +45,7 @@ function overdueTableFunc(data: Task[]) {
 
   return data.filter((task) => {
     const dueDate = new Date(task.dueDate);
-    return dueDate < today;
+    return !isTaskDone(task) && dueDate < today;
   });
 }
 
