@@ -18,6 +18,10 @@ A simple task management app to showcase writing tests using React Testing Libra
 
 `pnpm run start`
 
+#### Load default data
+
+The database can be populated with some default data using the script `pnpm run populate-db`
+
 ### React Testing
 
 #### Install Node 20+
@@ -33,3 +37,15 @@ need to change to it run `nvm use 20` or `nvm use node` or `nvm use --lts`
 To run all tests run `pnpm run test`
 
 To run a single test file run `pnpm run test -- path/to/test`
+
+### Cypress Testing
+
+Remember to have the application running via `pnpm run server` prior to running Cypress tests
+
+#### Run headed
+
+Using a VNC viewer of your choice, head to the root directory of this repo and run `pnpm cypress open`
+
+#### Run headless
+
+From the root directory of this repo, run `pnpm cypress run`

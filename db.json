@@ -1,60 +1,68 @@
 {
   "tasks": [
     {
-      "id": "63ece5ed-1954-4095-945e-26397ac634a0",
-      "title": "new task yooo",
-      "body": "new task body",
-      "dueDate": "2024-08-30T23:00:00.000Z",
-      "created": "2024-08-26T17:51:16.482Z",
-      "done": true
-    },
-    {
-      "id": "09ccbf27-14ea-4e3f-b25c-bbbfb8d538b8",
-      "title": "even ocoler task",
-      "body": "this is a really big task body to see how it displays in the table when the task description spans over multiple lines",
-      "dueDate": "2024-08-29T23:00:00.000Z",
-      "created": "2024-08-26T19:15:15.985Z",
-      "done": true
-    },
-    {
-      "id": "b0244db2-ff1b-4210-82ff-32e40e834f40",
-      "title": "today title",
-      "body": "today body",
-      "dueDate": "2024-09-02T23:00:00.000Z",
-      "created": "2024-09-03T16:03:51.683Z",
-      "done": true
-    },
-    {
-      "id": "bb1c9e61-cb71-4cce-838f-bda80e795192",
-      "title": "asafasfasfsaf",
-      "body": "asfasfasfasf",
-      "dueDate": "2024-09-02T23:00:00.000Z",
-      "created": "2024-09-03T16:46:25.148Z",
-      "done": true
-    },
-    {
-      "id": "99cd064a-b026-4c78-82fa-7be1bd6165c6",
-      "title": "task in a week",
-      "body": "asdadadasdsasd",
-      "dueDate": "2024-09-05T23:00:00.000Z",
-      "created": "2024-09-03T17:03:21.207Z",
-      "done": true
-    },
-    {
-      "id": "c6dd382e-bb7a-430b-90a5-ea1e9cfb3ec1",
-      "title": "afsfsasf",
-      "body": "sdgdsgdsgd",
-      "dueDate": "2024-09-04T23:00:00.000Z",
-      "created": "2024-09-05T10:54:47.517Z",
-      "done": true
-    },
-    {
-      "id": "6620b4ce-2121-47ba-b2cb-34a429580311",
-      "title": "task 1",
-      "body": "task 1 body",
-      "dueDate": "2024-09-11T23:00:00.000Z",
-      "created": "2024-09-12T16:12:39.964Z",
+      "id": "54658561-382b-470e-9eb1-d0ff209c8f67",
+      "title": "upcoming task 1",
+      "body": "this is the first task for the upcoming tab",
+      "dueDate": "2024-09-17T17:47:06.886Z",
+      "created": "2024-09-16T17:47:06.886Z",
       "done": false
+    },
+    {
+      "id": "5f93370d-a9f2-4765-8b06-2f04c88cef38",
+      "title": "upcoming task 2",
+      "body": "this is the second task for the upcoming tab",
+      "dueDate": "2024-09-19T17:47:06.886Z",
+      "created": "2024-09-16T17:47:06.886Z",
+      "done": false
+    },
+    {
+      "id": "f9ebf881-f77a-40be-bd7c-223662cbfb8a",
+      "title": "today task 1",
+      "body": "this is the first task for the today tab",
+      "dueDate": "2024-09-16T23:59:06.886Z",
+      "created": "2024-09-16T17:47:06.886Z",
+      "done": true
+    },
+    {
+      "id": "29c9b458-c405-4b4f-8299-a64337b184be",
+      "title": "today task 2",
+      "body": "this is the second task for the today tab",
+      "dueDate": "2024-09-16T23:59:06.886Z",
+      "created": "2024-09-16T17:47:06.886Z",
+      "done": false
+    },
+    {
+      "id": "6effd8a9-4725-4322-a30e-1e3d61db7867",
+      "title": "overdue task 1",
+      "body": "this is the first task for the overdue tab",
+      "dueDate": "2024-09-15T17:47:06.886Z",
+      "created": "2024-09-16T17:47:06.886Z",
+      "done": false
+    },
+    {
+      "id": "9978b92d-7e6d-4ccc-a159-4f265d5c7494",
+      "title": "overdue task 2",
+      "body": "this is the second task for the overdue tab",
+      "dueDate": "2024-09-15T17:47:06.886Z",
+      "created": "2024-09-16T17:47:06.886Z",
+      "done": false
+    },
+    {
+      "id": "6e06bd79-b07a-4468-976e-410805b7dcec",
+      "title": "archive task 1",
+      "body": "this is the first task for the archive tab",
+      "dueDate": "2024-09-16T17:47:06.886Z",
+      "created": "2024-09-16T17:47:06.886Z",
+      "done": true
+    },
+    {
+      "id": "7aa2b4b0-8a5f-45d2-9422-17f76cc5bdda",
+      "title": "archive task 2",
+      "body": "this is the second task for the archive tab",
+      "dueDate": "2024-09-16T17:47:06.886Z",
+      "created": "2024-09-16T17:47:06.886Z",
+      "done": true
     }
   ]
 }
