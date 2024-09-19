@@ -1,18 +1,18 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
-import Task from '../types/Task';
+import api from "@/libs/api";
+import type { Task } from "@/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function useUpdateTask(id: string) {
-  const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: (task: Task) => {
-      return axios.put(`http://localhost:8000/tasks/${id}`, task);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
-    },
-  });
+	const mutation = useMutation({
+		mutationFn: (task: Task) => {
+			return api.put(`http://localhost:8000/tasks/${id}`, task);
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["tasks"] });
+		},
+	});
 
-  return mutation;
+	return mutation;
 }
