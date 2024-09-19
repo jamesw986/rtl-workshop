@@ -1,7 +1,7 @@
-export default interface TaskCounts {
-  all: number;
-  today: number;
-  upcoming: number;
-  overdue: number;
-  archived: number;
+export interface TaskCounts {
+	all: number;
+	today: number;
+	upcoming: number;
+	overdue: number;
+	archived: number;
 }
