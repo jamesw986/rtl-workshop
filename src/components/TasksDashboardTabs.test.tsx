@@ -1,7 +1,7 @@
+import { renderComponent } from "@/testing/testHelpers";
 import { QueryClient } from "@tanstack/react-query";
 import { screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { renderComponent } from "../testing/testHelpers";
 import TasksDashboardTabs from "./TasksDashboardTabs";
 import "@testing-library/jest-dom";
 

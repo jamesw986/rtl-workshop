@@ -1,3 +1,4 @@
+import type { Task } from "@/types";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -6,7 +7,6 @@ import userEvent from "@testing-library/user-event";
 import dayjs from "dayjs";
 import type { ReactNode } from "react";
 import { v4 as uuidv4 } from "uuid";
-import type { Task } from "../types";
 
 const defaultQueryClient = new QueryClient({
 	defaultOptions: { queries: { retry: false } },

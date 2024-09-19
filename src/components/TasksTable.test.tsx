@@ -1,6 +1,3 @@
-import { QueryClient } from "@tanstack/react-query";
-import { screen, waitFor, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
 import {
 	type TestData,
 	getAllTasksTestData,
@@ -13,7 +10,10 @@ import {
 	getUpcomingTestData,
 	renderComponent,
 	transformTestDataDates,
-} from "../testing/testHelpers";
+} from "@/testing/testHelpers";
+import { QueryClient } from "@tanstack/react-query";
+import { screen, waitFor, within } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import TasksTable from "./TasksTable";
 import tableDataReducers from "./utils/tableDataReducers";
 

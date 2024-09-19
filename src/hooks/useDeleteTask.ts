@@ -1,7 +1,7 @@
 import api from "@/libs/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function useDeleteTask(id: string) {
+export function useDeleteTask(id: string) {
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation({
