@@ -1,7 +1,7 @@
 {
 	"name": "rtl-workshop",
 	"private": true,
-  "version": "0.0.0",
+	"version": "0.0.0",
 	"scripts": {
 		"start": "pnpm run server & pnpm run dev",
 		"dev": "vite",
