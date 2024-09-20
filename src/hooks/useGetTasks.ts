@@ -1,15 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import Task from '../types/Task';
+import api from "@/libs/api";
+import type { Task } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 
-async function getTasks(): Promise<Task[]> {
-  const response = await axios.get('http://localhost:8000/tasks');
-  return response.data;
-}
+export function useGetTasks() {
+	async function getTasks(): Promise<Task[]> {
+		const response = await api.get("http://localhost:8000/tasks");
+		return response.data;
+	}
 
-export default function useGetTasks() {
-  return useQuery({
-    queryKey: ['tasks'],
-    queryFn: getTasks,
-  });
+	return useQuery({
+		queryKey: ["tasks"],
+		queryFn: getTasks,
+	});
 }
